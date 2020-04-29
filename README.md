@@ -17,8 +17,21 @@ A directory [cwl](cwl) should contain tool definitions in the CWL language.
 
 Tests for the CWL tool should be added to the [tests](tests) directory.
 
-# Versioning
+## Continuous Deployment and Versioning
 
-This template uses GitHub actions to perform automated versioning and version bumping. This requires two files: `SOFTWARE_VERSION` (which maps to the version of the main software tool being wrapped by the CWL tool) and `VERSION` which maps to the software version plus a build version (looks like `X.Y.Z--B` where `B` is a monotonically increasing integer that is increased on every push to the master branch of the repository.
+This template uses GitHub actions to perform automated versioning, version bumping, building of tagged Docker images, and pushing images to DockerHub.
+
+### Credentials
+
+This uses GitHub secrets to store credentials for the GitHub action to push to the `sagebionetworks` DockerHub account. 
+
+### DockerHub
+
+The workflow needs to be altered to change the name of the DockerHub repository that images are pushed to. Ideally, the name of the DockerHub repository should be the same as the GitHub repository. The workflow uses this name by default as the name of the DockerHub branch to push to.
+
+### Versioning
+
+This requires two files: `SOFTWARE_VERSION` (which maps to the version of the main software tool being wrapped by the CWL tool) and `VERSION` which maps to the software version plus a build version (looks like `X.Y.Z--B` where `B` is a monotonically increasing integer that is increased on every push to the master branch of the repository.
 
 The action is available at [.github/workflows/bump-version-and-build.yml](.github/workflows/bump-version-and-build.yml).
+
