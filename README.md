@@ -23,11 +23,11 @@ This template uses GitHub actions to perform automated versioning, version bumpi
 
 ### Credentials
 
-This uses GitHub secrets to store credentials for the GitHub action to push to the `sagebionetworks` DockerHub account. 
+This uses GitHub secrets to store credentials for the GitHub action to push to the `sagebionetworks` DockerHub account using a service account. It also uses a service GitHub account for commiting new version automatically. All repositories that are generated from this template will need to have this service account added to it.
 
 ### DockerHub
 
-The workflow needs to be altered to change the name of the DockerHub repository that images are pushed to. Ideally, the name of the DockerHub repository should be the same as the GitHub repository. The workflow uses this name by default as the name of the DockerHub branch to push to.
+Ideally, the name of the DockerHub repository should be the same as the GitHub repository. The workflow uses this name by default as the name of the DockerHub branch to push to.
 
 ### Versioning
 
