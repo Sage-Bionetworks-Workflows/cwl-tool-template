@@ -9,6 +9,9 @@ import yaml
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
+ERROR_UNEXPECTED_TYPE = 'Object is neither a list nor a dictionary'
+ERROR_MISSING_DOCKER_REQUIREMENT = 'CWL tool is missing DockerRequirement'
+ERROR_MISSING_DOCKER_PULL = 'Please specify "dockerPull" in your DockerRequirement and rerun script'
 
 def tools_list(tools_dir):
   log.debug(f'tools_dir passed to tools_list={tools_dir}')
@@ -23,14 +26,62 @@ def read_tool(path):
   return tool
 
 
+def parse_docker_image(tool):
+
+  def find_docker_requirement(object):
+    if type(object) is dict:
+      docker_requirement = object.get('DockerRequirement', None)
+      object_type = dict
+    elif type(object) is list:
+      docker_requirement = next((item for item in object if item['class'] == 'DockerRequirement'), None)
+      object_type = list
+    else:
+      raise ValueError(ERROR_UNEXPECTED_TYPE)
+
+    return docker_requirement,object_type
+
+  docker_requirement = None
+
+  if 'hints' in tool:
+    docker_requirement, object_type = find_docker_requirement(tool['hints'])
+    print(docker_requirement)
+    if docker_requirement is not None:
+      parsing_metadata = {
+        'docker_requirement_found_in': 'hints',
+        'object_type': object_type
+      }
+
+  if docker_requirement is None and 'requirements' in tool:
+    docker_requirement, object_type = find_docker_requirement(tool['requirements'])
+    print(docker_requirement)
+    if docker_requirement is not None:
+      parsing_metadata = {
+        'docker_requirement_found_in': 'requirements',
+        'object_type': object_type
+      }
+
+  if docker_requirement is None:
+    raise ValueError(ERROR_MISSING_DOCKER_REQUIREMENT)
+
+  docker_image = docker_requirement.get('dockerPull', None)
+
+  if docker_image is None:
+    raise ValueError(ERROR_MISSING_DOCKER_PULL)
+
+  return docker_image, parsing_metadata
+
+
 def edit_tool(tool, new_version):
-  # this is dependent on cwl syntax -- you'll need to change this
-  # if you use the list style for hints, or put your DockerRequirement
-  # under 'requirements' instead of 'hints'
-  docker_image = tool['hints']['DockerRequirement']['dockerPull']
+  docker_image, parsing_metadata = parse_docker_image(tool)
   parts = docker_image.split(':')
   parts[-1] = new_version
-  tool['hints']['DockerRequirement']['dockerPull'] = ':'.join(parts)
+  tool_obj = tool[parsing_metadata['docker_requirement_found_in']]
+  new_docker_image = ':'.join(parts)
+  if parsing_metadata['object_type'] is dict:
+    docker_requirement = tool_obj['DockerRequirement']
+  else:
+    docker_requirement = next((item for item in tool_obj if item['class'] == 'DockerRequirement'))
+  docker_requirement['dockerPull'] = new_docker_image
   return yaml.dump(tool)
 
 
