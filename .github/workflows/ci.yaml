@@ -48,7 +48,7 @@ jobs:
       - name: Test CWL
         id: test_cwl
         run: |
-          cwltest --test test-descriptions.yaml --tool cwl-runner
+          cwltest --test tests/test-descriptions.yaml --tool cwl-runner
 
   build:
     if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
