@@ -44,7 +44,6 @@ def parse_docker_image(tool):
 
   if 'hints' in tool:
     docker_requirement, object_type = find_docker_requirement(tool['hints'])
-    print(docker_requirement)
     if docker_requirement is not None:
       parsing_metadata = {
         'docker_requirement_found_in': 'hints',
@@ -53,7 +52,6 @@ def parse_docker_image(tool):
 
   if docker_requirement is None and 'requirements' in tool:
     docker_requirement, object_type = find_docker_requirement(tool['requirements'])
-    print(docker_requirement)
     if docker_requirement is not None:
       parsing_metadata = {
         'docker_requirement_found_in': 'requirements',
