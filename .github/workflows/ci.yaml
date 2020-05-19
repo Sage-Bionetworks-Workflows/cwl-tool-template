@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
+    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,7 +51,7 @@ jobs:
           cwltest --test tests/test-descriptions.yaml --tool cwl-runner
 
   build:
-    if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
+    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     needs: test
     runs-on: ubuntu-latest
     env:
@@ -77,7 +77,6 @@ jobs:
         id: calc_version
         uses: mathieudutour/github-tag-action@v4.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           dry_run: true # calculate the next version without actually tagging
           release_branches: master
 
