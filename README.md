@@ -17,7 +17,7 @@ A directory [cwl](cwl) should contain tool definitions in the CWL language.
 ## Tests
 
 [`cwltest`](https://github.com/common-workflow-language/cwltest) is used for
-testing tools. Add test descriptions to `test-descriptions.yaml`. Each test
+testing tools. Add test descriptions to `tests/test-descriptions.yaml`. Each test
 added requires a file describing the job inputs that should be added to the
 [tests](tests) directory.
 
@@ -37,8 +37,7 @@ runs on each tag push.
 ### Credentials
 
 This uses GitHub secrets to store credentials for the GitHub action to push to
-the `sagebionetworks` DockerHub account using a service account. It also uses a
-service GitHub account for commiting new version automatically. All repositories
+the `sagebionetworks` DockerHub account using a service account. All repositories
 that are generated from this template will need to have this service account
 added to it.
 
@@ -49,9 +48,9 @@ repository. The workflow uses this name by default as the name of the DockerHub
 branch to push to.
 
 ### Versioning
-Versioning is achieved through git tagging using semantic versioning.
-Each push to master will generate an increment to the patch value, unless the
-commit contains the string '[skip-ci]'.
+Versioning is achieved through git tagging using
+[semantic versioning](https://semver.org/). Each push to master will generate an
+increment to the patch value, unless the commit contains the string '[skip-ci]'.
 
 Use the release script to do a minor or major release. 
 To create a minor release, run `python utils/release.py` from the project root.
@@ -71,3 +70,18 @@ Alternately, to do a minor or major releases manually:
 Whether you use the release script or create a manual tag, a tag push activates
 the `tag-ci.yaml` action instead of the `ci.yaml` action, and builds the docker 
 image tagged with the release version number.
+
+#### Branch Versioning
+Optionally, you can set up your repository for running the CI action on pushes
+to all branches, not just master. This is not the default behavior because it
+introduces complexity and requires that you use git in a certain way.
+
+To set this up, in `.github/workflows/ci.yaml`, change `master` to `'*'` in the
+event filter ( on > push > branches). This will cause pushes to non-master tags
+to also build. They will be tagged with this pattern: <semver>-<git-short-sha>,
+e.g. `v1.0.0-197e187`.
+
+If you choose to make this change, for best results we recommend that you also
+use the no-fast-forward flag (`--no-ff`) when merging branches to master. Using
+that flag will ensure that a new merge commit is created, and CI will run
+correctly. Without a new merge commit, versioning won't work correctly.
