@@ -10,6 +10,8 @@ pytest = "*"
 semver = "*"
 gitpython = "*"
 pyyaml = "*"
+cwltest = "*"
+cwlref-runner = "*"
 
 [requires]
 python_version = "3.7"
