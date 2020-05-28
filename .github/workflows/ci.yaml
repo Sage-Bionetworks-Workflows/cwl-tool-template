@@ -26,7 +26,8 @@ jobs:
       - name: Setup Test Environment
         id: setup_test_environment
         run: |
-          python -m pip install pyyaml cwltest cwlref-runner
+          python -m pip install pipenv
+          pipenv install --dev
           short_sha=${GITHUB_SHA::8}
           echo "::set-env name=SHORT_SHA::$short_sha"
 
@@ -43,12 +44,12 @@ jobs:
         run: |
           tools_dir=cwl
           new_version=${{ env.SHORT_SHA }}
-          python utils/bump_cwl_version.py $tools_dir $new_version
+          pipenv run utils/bump_cwl_version.py $tools_dir $new_version
 
       - name: Test CWL
         id: test_cwl
         run: |
-          cwltest --test tests/test-descriptions.yaml --tool cwl-runner
+          pipenv run cwltest --test tests/test-descriptions.yaml --tool cwl-runner
 
   build:
     if: "!contains(github.event.head_commit.message, '[skip-ci]')"
@@ -71,7 +72,8 @@ jobs:
       - name: Setup Build Environment
         id: setup_build_environment
         run: |
-          python -m pip install pyyaml
+          python -m pip install pipenv
+          pipenv install
 
       - name: Calculate Next Autotagging Version
         id: calc_version
@@ -93,7 +95,7 @@ jobs:
         run: |
           tools_dir=cwl
           new_version=${{ env.NEW_VERSION }}
-          python utils/bump_cwl_version.py $tools_dir $new_version
+          pipenv run utils/bump_cwl_version.py $tools_dir $new_version
 
       - name: Commit, Tag, Push
         id: commit_tag_push
