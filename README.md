@@ -3,11 +3,11 @@ A template project for setting up a containerized CWL Tool.
 
 # Description
 
-This template contains versioned CWL tools and a Docker file for the `` software.  
+This template contains versioned CWL tools and a Docker file for the `template` software.  
 
 ## Dockerfile
 
-A Dockerfile exists in the top level directory of this repository. Builds are automatically triggered on pushes in which the most recent commit message does not contain the `[skip-ci]` string
+A Dockerfile exists in the top level directory of this repository. Builds are automatically triggered on pushes in which the most recent commit message does not contain the `[skip-ci]` string.
 
 ## CWL
 
