@@ -3,7 +3,7 @@ A template project for setting up a containerized CWL Tool.
 
 # Description
 
-This template contains versioned CWL tools and a Docker file for the `template` software.  
+This template contains versioned CWL tools and a Docker file for the template software.  
 
 ## Dockerfile
 
@@ -16,7 +16,7 @@ The [cwl](cwl) folder contains tool definitions in the Common Workflow language.
 ## Tests
 
 [`cwltest`](https://github.com/common-workflow-language/cwltest) is used for
-testing tools. Test descriptions are present in `tests/test-descriptions.yaml`. Tests are automatically performed on pushes in which the most recent commit message does not contain the `[skip-ci]` string.  When tests pass, a docker image is published to dockerhub, and the cwl files are updated to point to this new build.  
+testing tools. Tests can be added in `tests/test-descriptions.yaml`. Tests are automatically performed on pushes in which the most recent commit message does not contain the `[skip-ci]` string.  When tests pass, a docker image is published to dockerhub, and the cwl files are updated to point to this new build.  
 
 # Contributing 
 
