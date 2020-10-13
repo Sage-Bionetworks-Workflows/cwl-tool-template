@@ -1,7 +1,21 @@
-- job: echo_hello_world.yaml
-  output:
-    out: "hello, world!"
+- label: echo_basic
+  doc: Testing basic functionality of `echo` CWL tool
   tool: ../cwl/echo.cwl
-  label: echo_hello_world_test
-  id: 0
-  doc: Placeholder test
+  job: jobs/echo_basic.yaml
+  output:
+    output_contents: "hello, world!\n"
+    output_file: 
+      class: File
+      basename: out.txt
+      checksum: sha1$e91ba0972b9055187fa2efa8b5c156f487a8293a
+
+- label: echo_no_newline
+  doc: Testing `extra_args` by printing without a trailing newline
+  tool: ../cwl/echo.cwl
+  job: jobs/echo_no_newline.yaml
+  output:
+    output_contents: "hello, world!"
+    output_file: 
+      class: File
+      basename: out.txt
+      checksum: sha1$1f09d30c707d53f3d16c530dd73d70a6ce7596a9
