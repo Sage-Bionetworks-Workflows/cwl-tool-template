@@ -13,6 +13,9 @@ A Dockerfile exists in the top level directory of this repository. Builds are au
 
 The [cwl](cwl) folder contains tool definitions in the Common Workflow language.
 
+- `echo.cwl`: This file contains the simplest possible example of a CWL tool ([source](https://github.com/common-workflow-language/cwltool/blob/main/tests/echo.cwl)).
+- `echo_best_practices.cwl`: This file contains an alternative version of `echo.cwl` to illustrate best practices. When building your own tools using this repository template, feel free to use this version as the basis for your tool.
+
 ## Tests
 
 [`cwltest`](https://github.com/common-workflow-language/cwltest) is used for
