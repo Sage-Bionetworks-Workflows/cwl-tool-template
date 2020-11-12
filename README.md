@@ -7,7 +7,7 @@ This template contains versioned CWL tools and a Docker file for the template so
 
 ## Dockerfile
 
-A Dockerfile exists in the top level directory of this repository. Builds are automatically triggered on pushes in which the most recent commit message does not contain the `[skip-ci]` string.
+A Dockerfile exists in the top level directory of this repository. Builds are automatically triggered on pushes to the `master` branch in which the most recent commit message does not contain the `[skip-ci]` string.
 
 ## CWL
 
@@ -19,7 +19,7 @@ The [cwl](cwl) folder contains tool definitions in the Common Workflow language.
 ## Tests
 
 [`cwltest`](https://github.com/common-workflow-language/cwltest) is used for
-testing tools. Tests can be added in `tests/test-descriptions.yaml`. Tests are automatically performed on pushes in which the most recent commit message does not contain the `[skip-ci]` string.  When tests pass, a docker image is published to dockerhub, and the cwl files are updated to point to this new build.  
+testing tools. Tests can be added in `tests/test-descriptions.yaml`. Tests are automatically performed on all pushes and pull requests in which the most recent commit message does not contain the `[skip-ci]` string.  If the test was triggered by a push to the `master` branch and the tests pass, a docker image is published to dockerhub, and the cwl files are updated to point to this new build.  
 
 # Contributing 
 
@@ -32,7 +32,7 @@ bumping, building of tagged Docker images, and pushing images to DockerHub.
 
 ### CI
 Defined in [.github/workflows/ci.yaml](.github/workflows/ci.yaml), this action
-runs on each push to master where the commit does not contain '[skip-ci]'.
+runs on every push and pull request where the commit does not contain '[skip-ci]'. That said, the deployment job is conditionally run when the tests pass and the triggering event was a push to the `master` branch.
 
 ### TAG CI
 Defined in [.github/workflows/ci.yaml](.github/workflows/tag-ci.yaml), this action
