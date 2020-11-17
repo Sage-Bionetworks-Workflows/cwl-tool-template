@@ -3,9 +3,10 @@
 import argparse
 import glob
 import logging
-import yaml
+import os
 
 import chevron
+import yaml
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -16,7 +17,7 @@ ERROR_MISSING_DOCKER_PULL = 'Please specify "dockerPull" in your DockerRequireme
 
 def tools_list(tools_dir):
   log.debug(f'tools_dir passed to tools_list={tools_dir}')
-  glob_pattern = f'{tools_dir}/*.cwl'
+  glob_pattern = f'{tools_dir}/*.mustache'
   log.debug(f'glob_pattern ={glob_pattern}')
   return glob.glob(glob_pattern)
 
@@ -91,7 +92,7 @@ def create_tool(template_path, new_version, tools_dir):
     template = chevron.render(mus_f, cwl_input)
   tool_path = os.path.join(tools_dir, tool_name)
   with open(tool_path, "w") as tool_f:
-      tool_f.write(template)
+    tool_f.write(template)
 
 
 def write_tool(path, output):
