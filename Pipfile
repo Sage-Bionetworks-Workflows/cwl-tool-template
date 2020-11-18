@@ -12,6 +12,7 @@ gitpython = "*"
 pyyaml = "*"
 cwltest = "*"
 cwlref-runner = "*"
+chevron = "*"
 
 [requires]
 python_version = "3.7"
