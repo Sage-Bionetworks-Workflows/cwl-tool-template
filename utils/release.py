@@ -50,7 +50,9 @@ else:
 
 # Update the version for all cwl tools
 tools_dir = 'cwl' # assuming relative to repo root
-bump_cwl_version.main(tools_dir=tools_dir, new_version=str(new_version))
+templates_dir = "template"
+bump_cwl_version.main(tools_dir=tools_dir, new_version=str(new_version),
+                      templates_dir=templates_dir)
 
 # Check whether repo is dirty before attempting commit
 if repo.is_dirty():
