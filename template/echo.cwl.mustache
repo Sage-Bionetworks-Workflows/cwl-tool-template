@@ -1,8 +1,8 @@
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand:
-  - echo
-  - -n
+- echo
+- -n
 stdout: out.txt
 
 hints:
@@ -10,7 +10,7 @@ hints:
     dockerPull: sagebionetworks/dockstore-tool-template:{{{ version }}}
 
 arguments:
-  - $(inputs.message)
+- $(inputs.message)
 
 inputs:
   message:
