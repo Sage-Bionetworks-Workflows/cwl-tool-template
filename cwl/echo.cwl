@@ -1,21 +1,25 @@
-arguments:
-- $(inputs.message)
+cwlVersion: v1.0
+class: CommandLineTool
 baseCommand:
 - echo
 - -n
-class: CommandLineTool
-cwlVersion: v1.0
+stdout: out.txt
+
 hints:
   DockerRequirement:
     dockerPull: sagebionetworks/dockstore-tool-template:0.0.6
+
+arguments:
+- $(inputs.message)
+
 inputs:
   message:
     type: string
+
 outputs:
   out:
+    type: string
     outputBinding:
       glob: out.txt
       loadContents: true
       outputEval: $(self[0].contents)
-    type: string
-stdout: out.txt
