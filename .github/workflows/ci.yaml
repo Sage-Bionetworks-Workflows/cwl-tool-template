@@ -89,8 +89,8 @@ jobs:
         run: |
           new_version=${{ steps.calc_version.outputs.new_version }}
           new_tag=${{ steps.calc_version.outputs.new_tag }}
-          echo 'NEW_VERSION=$new_version' >> $GITHUB_ENV
-          echo 'NEW_GIT_TAG=$new_tag' >> $GITHUB_ENV
+          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+          echo "NEW_GIT_TAG=${new_tag}" >> $GITHUB_ENV
 
       - name: Publish Docker Image
         id: docker_publish

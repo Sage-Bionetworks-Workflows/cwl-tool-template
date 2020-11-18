@@ -20,7 +20,7 @@ jobs:
         id: new_version
         run: |
           new_version=${GITHUB_REF#"refs/tags/v"}
-          echo 'NEW_VERSION=$new_version' >> $GITHUB_ENV
+          echo 'NEW_VERSION=${new_version}' >> $GITHUB_ENV
 
       - name: Publish Docker Image
         id: docker_publish
