@@ -26,7 +26,7 @@ jobs:
           python -m pip install pipenv
           pipenv install --dev
           short_sha=${GITHUB_SHA::8}
-          echo "::set-env name=SHORT_SHA::$short_sha"
+          echo 'SHORT_SHA=$short_sha' >> $GITHUB_ENV
 
       - name: Build Docker Image For testing
         id: docker_build
