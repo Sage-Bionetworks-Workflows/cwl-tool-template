@@ -23,11 +23,11 @@ assert not repo.is_dirty(), 'Cannot create a release: repo is dirty. Commit firs
 # Ensure everything is up to date
 repo.remote().fetch()
 branch = repo.active_branch
-if branch.name != 'master':
-  raise Exception(f'The active branch is {branch}, not master. Please switch to master before performing a release.')
+if branch.name != 'main':
+  raise Exception(f'The active branch is {branch}, not main. Please switch to main before performing a release.')
 
 # This assumes the remote is named origin
-commits_behind = len(list(repo.iter_commits('master..origin/master')))
+commits_behind = len(list(repo.iter_commits('main..origin/main')))
 if commits_behind != 0:
   raise Exception(f'Branch is {commits_behind} commits behind remote. Pull before attempting release.')
 
