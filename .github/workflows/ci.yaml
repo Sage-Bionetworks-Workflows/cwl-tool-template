@@ -26,7 +26,7 @@ jobs:
           python -m pip install pipenv
           pipenv install --dev
           short_sha=${GITHUB_SHA::8}
-          echo 'SHORT_SHA=$short_sha' >> $GITHUB_ENV
+          echo "SHORT_SHA=${short_sha}" >> $GITHUB_ENV
 
       - name: Build Docker Image For testing
         id: docker_build
@@ -94,7 +94,7 @@ jobs:
 
       - name: Publish Docker Image
         id: docker_publish
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           repository: sagebionetworks/${{ github.event.repository.name }}
           username: ${{ secrets.DOCKER_USERNAME }}
