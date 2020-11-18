@@ -24,7 +24,7 @@ jobs:
 
       - name: Publish Docker Image
         id: docker_publish
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           repository: sagebionetworks/${{ github.event.repository.name }}
           username: ${{ secrets.DOCKER_USERNAME }}
