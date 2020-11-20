@@ -25,7 +25,7 @@ requirements:
 - class: ShellCommandRequirement
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/dockstore-tool-template:0.0.6
+    dockerPull: sagebionetworks/dockstore-tool-template:0.0.7
 
 inputs:
   extra_args:
