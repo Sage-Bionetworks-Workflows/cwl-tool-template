@@ -10,6 +10,7 @@ doc: "The `echo` command-line utility is used to print a message, which is captu
 hints:
   DockerRequirement:
     dockerPull: sagebionetworks/dockstore-tool-template:0.0.8
+
 inputs:
   extra_args:
     inputBinding:
