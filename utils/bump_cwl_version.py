@@ -16,9 +16,9 @@ ERROR_MISSING_DOCKER_REQUIREMENT = 'CWL tool is missing DockerRequirement'
 ERROR_MISSING_DOCKER_PULL = 'Please specify "dockerPull" in your DockerRequirement and rerun script'
 
 
-def tools_list(tools_dir):
-  log.debug(f'tools_dir passed to tools_list={tools_dir}')
-  glob_pattern = f'{tools_dir}/*.mustache'
+def templates_list(templates_dir):
+  log.debug(f'templates_dir passed to templates_list={templates_dir}')
+  glob_pattern = f'{templates_dir}/*.mustache'
   log.debug(f'glob_pattern ={glob_pattern}')
   return glob.glob(glob_pattern)
 
@@ -56,7 +56,7 @@ def parse_args():
 
 
 def main(tools_dir, new_version, template_dir):
-  template_paths = tools_list(template_dir)
+  template_paths = templates_list(template_dir)
   for template_path in template_paths:
     create_tool(template_path=template_path, new_version=new_version,
                 tools_dir=tools_dir)
