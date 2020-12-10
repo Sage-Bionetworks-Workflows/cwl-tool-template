@@ -26,15 +26,20 @@ jobs:
           python -m pip install pipenv
           pipenv install --dev
           short_sha=${GITHUB_SHA::8}
-          echo "::set-env name=SHORT_SHA::$short_sha"
+          echo "SHORT_SHA=${short_sha}" >> $GITHUB_ENV
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image For testing
         id: docker_build
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
-          repository: sagebionetworks/${{ github.event.repository.name }}
           push: false # don't push before testing
-          tags: ${{ env.SHORT_SHA }}
+          tags: sagebionetworks/${{ github.event.repository.name }}:${{ env.SHORT_SHA }}
 
       - name: Edit CWL file tool version
         id: edit_cwl
@@ -54,7 +59,7 @@ jobs:
       &&
       github.event_name == 'push'
       &&
-      github.ref == 'refs/heads/master'
+      github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     env:
@@ -82,24 +87,29 @@ jobs:
         uses: mathieudutour/github-tag-action@v4.2
         with:
           dry_run: true # calculate the next version without actually tagging
-          release_branches: master
+          release_branches: main
 
       - name: Set Env Vars
         id: set_version_env_vars
         run: |
           new_version=${{ steps.calc_version.outputs.new_version }}
           new_tag=${{ steps.calc_version.outputs.new_tag }}
-          echo "::set-env name=NEW_VERSION::$new_version"
-          echo "::set-env name=NEW_GIT_TAG::$new_tag"
+          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+          echo "NEW_GIT_TAG=${new_tag}" >> $GITHUB_ENV
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Publish Docker Image
         id: docker_publish
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
-          repository: sagebionetworks/${{ github.event.repository.name }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: ${{ env.NEW_VERSION }},latest
+          tags: |
+            sagebionetworks/${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
+            sagebionetworks/${{ github.event.repository.name }}:latest
 
       - name: Edit CWL file tool version
         id: edit_cwl
