@@ -46,7 +46,8 @@ jobs:
         run: |
           tools_dir=cwl
           new_version=${{ env.SHORT_SHA }}
-          pipenv run utils/bump_cwl_version.py $tools_dir $new_version
+          templates_dir=template
+          pipenv run utils/bump_cwl_version.py $tools_dir $new_version $templates_dir
 
       - name: Test CWL
         id: test_cwl
