@@ -7,7 +7,7 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/dockstore-tool-template:0.0.11
+    dockerPull: sagebionetworks/dockstore-tool-template:0.0.12
 inputs:
   message:
     type: string
