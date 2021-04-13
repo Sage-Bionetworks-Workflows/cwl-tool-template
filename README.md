@@ -1,3 +1,5 @@
+[![CI](https://github.com/Sage-Bionetworks-Workflows/cwl-tool-template/actions/workflows/ci.yaml/badge.svg)](https://github.com/Sage-Bionetworks-Workflows/cwl-tool-template/actions/workflows/ci.yaml)
+
 # cwl-tool-template
 A template project for setting up a containerized CWL Tool.
 
