@@ -9,7 +9,7 @@ doc: "The `echo` command-line utility is used to print a message, which is captu
   \ from standard output.\nVisit the Linux manual page for more information:\n  https://www.freebsd.org/cgi/man.cgi?query=echo\n"
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/dockstore-tool-template:0.0.13
+    dockerPull: sagebionetworks/cwl-tool-template:latest
 inputs:
   extra_args:
     inputBinding:
