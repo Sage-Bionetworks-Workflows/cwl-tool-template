@@ -34,6 +34,7 @@ outputs:
     outputBinding:
       glob: out.txt
     type: File
+stdout: out.txt
 requirements:
 - class: ShellCommandRequirement
 s:author:
@@ -45,4 +46,3 @@ s:author:
   s:identifier: https://orcid.org/0000-0002-4621-1589
   s:name: Bruno Grande
 s:license: https://spdx.org/licenses/Apache-2.0
-stdout: out.txt
