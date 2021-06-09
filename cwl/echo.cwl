@@ -7,7 +7,7 @@ class: CommandLineTool
 cwlVersion: v1.0
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/cwl-tool-template:0.0.16
+    dockerPull: sagebionetworks/cwl-tool-template:0.0.17
 inputs:
   message:
     type: string

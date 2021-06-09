@@ -9,7 +9,7 @@ doc: "The `echo` command-line utility is used to print a message, which is captu
   \ from standard output.\nVisit the Linux manual page for more information:\n  https://www.freebsd.org/cgi/man.cgi?query=echo\n"
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/cwl-tool-template:0.0.16
+    dockerPull: sagebionetworks/cwl-tool-template:0.0.17
 inputs:
   extra_args:
     inputBinding:
@@ -34,7 +34,6 @@ outputs:
     outputBinding:
       glob: out.txt
     type: File
-stdout: out.txt
 requirements:
 - class: ShellCommandRequirement
 s:author:
@@ -46,3 +45,4 @@ s:author:
   s:identifier: https://orcid.org/0000-0002-4621-1589
   s:name: Bruno Grande
 s:license: https://spdx.org/licenses/Apache-2.0
+stdout: out.txt
