@@ -108,6 +108,7 @@ jobs:
         id: docker_publish
         uses: docker/build-push-action@v2
         with:
+          push: true
           tags: |
             sagebionetworks/${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
             sagebionetworks/${{ github.event.repository.name }}:latest
