@@ -17,7 +17,11 @@ requirements:
 
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/cwl-tool-template:0.0.17
+    dockerPull: sagebionetworks/cwl-tool-template:0.0.18
+
+baseCommand:
+  - echo
+
 inputs:
 
   extra_args:

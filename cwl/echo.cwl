@@ -7,7 +7,11 @@ stdout: out.txt
 
 hints:
   DockerRequirement:
-    dockerPull: sagebionetworks/cwl-tool-template:0.0.17
+    dockerPull: sagebionetworks/cwl-tool-template:0.0.18
+
+arguments:
+- $(inputs.message)
+
 inputs:
   message:
     type: string
