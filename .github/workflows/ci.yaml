@@ -118,7 +118,8 @@ jobs:
         run: |
           tools_dir=cwl
           new_version=${{ env.NEW_VERSION }}
-          pipenv run utils/bump_cwl_version.py $tools_dir $new_version
+          templates_dir=template
+          pipenv run utils/bump_cwl_version.py $tools_dir $new_version $templates_dir
 
       - name: Commit, Tag, Push
         id: commit_tag_push
